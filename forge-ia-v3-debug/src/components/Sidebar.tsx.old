@@ -1,0 +1,138 @@
+import React, { useState } from 'react';
+import { 
+  FolderPlus, 
+  Bot, 
+  Wrench, 
+  Eye, 
+  Settings, 
+  Database,
+  GitBranch,
+  Shield,
+  BarChart3,
+  Code,
+  Palette,
+  FileText
+} from 'lucide-react';
+import { CreateProjectModal } from './CreateProjectModal';
+import { Project } from '../types';
+
+interface SidebarProps {
+  activePanel: string;
+  onPanelChange: (panel: string) => void;
+  onProjectCreated?: (project: Project) => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ 
+  activePanel, 
+  onPanelChange,
+  onProjectCreated 
+}) => {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const menuItems = [
+    { id: 'ai', icon: Bot, label: 'IA Assistant', color: 'text-blue-600' },
+    { id: 'tools', icon: Wrench, label: 'Outils', color: 'text-green-600' },
+    { id: 'preview', icon: Eye, label: 'Aperçu', color: 'text-purple-600' },
+    { id: 'database', icon: Database, label: 'Base de données', color: 'text-orange-600' },
+    { id: 'git', icon: GitBranch, label: 'Git & Versions', color: 'text-gray-600' },
+    { id: 'security', icon: Shield, label: 'Sécurité', color: 'text-red-600' },
+    { id: 'analytics', icon: BarChart3, label: 'Analytics', color: 'text-indigo-600' },
+    { id: 'code', icon: Code, label: 'Éditeur Code', color: 'text-yellow-600' },
+    { id: 'theme', icon: Palette, label: 'Thème', color: 'text-pink-600' },
+    { id: 'docs', icon: FileText, label: 'Documentation', color: 'text-cyan-600' }
+  ];
+
+  const handleCreateProject = () => {
+    console.log('🚀 Ouverture modal création projet depuis Sidebar');
+    setIsCreateModalOpen(true);
+  };
+
+  const handleProjectCreated = (project: Project) => {
+    console.log('✅ Projet créé depuis Sidebar:', project.name);
+    onProjectCreated?.(project);
+    setIsCreateModalOpen(false);
+  };
+
+  return (
+    <>
+      <div className="w-16 bg-gray-900 border-r border-gray-700 flex flex-col items-center py-4 space-y-2">
+        {/* Bouton Nouveau Projet */}
+        <button
+          onClick={handleCreateProject}
+          className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors group relative"
+          title="Nouveau Projet"
+        >
+          <FolderPlus className="h-6 w-6 text-white" />
+          
+          {/* Tooltip */}
+          <div className="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+            Nouveau Projet
+          </div>
+        </button>
+
+        {/* Séparateur */}
+        <div className="w-8 h-px bg-gray-700 my-2"></div>
+
+        {/* Menu items */}
+        {menuItems.map((item) => {
+          const IconComponent = item.icon;
+          const isActive = activePanel === item.id;
+          
+          return (
+            <button
+              key={item.id}
+              onClick={() => {
+                console.log('📱 Changement de panel:', item.id);
+                onPanelChange(item.id);
+              }}
+              className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors group relative ${
+                isActive 
+                  ? 'bg-gray-700 ring-2 ring-blue-500' 
+                  : 'hover:bg-gray-800'
+              }`}
+              title={item.label}
+            >
+              <IconComponent 
+                className={`h-5 w-5 ${
+                  isActive ? 'text-blue-400' : 'text-gray-400 group-hover:text-white'
+                }`} 
+              />
+              
+              {/* Tooltip */}
+              <div className="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+                {item.label}
+              </div>
+            </button>
+          );
+        })}
+
+        {/* Bouton Settings en bas */}
+        <div className="flex-1"></div>
+        <button
+          onClick={() => onPanelChange('settings')}
+          className={`w-12 h-12 rounded-lg flex items-center justify-center transition-colors group relative ${
+            activePanel === 'settings' 
+              ? 'bg-gray-700 ring-2 ring-blue-500' 
+              : 'hover:bg-gray-800'
+          }`}
+          title="Paramètres"
+        >
+          <Settings className={`h-5 w-5 ${
+            activePanel === 'settings' ? 'text-blue-400' : 'text-gray-400 group-hover:text-white'
+          }`} />
+          
+          <div className="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+            Paramètres
+          </div>
+        </button>
+      </div>
+
+      {/* Modal de création de projet */}
+      <CreateProjectModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onProjectCreated={handleProjectCreated}
+      />
+    </>
+  );
+};

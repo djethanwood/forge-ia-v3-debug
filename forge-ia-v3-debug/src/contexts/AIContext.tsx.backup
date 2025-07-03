@@ -1,0 +1,121 @@
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { realAIOrchestrator } from '../services/realAIOrchestrator';
+
+interface AIModel {
+  id: string;
+  name: string;
+  type: 'conversational' | 'creative' | 'technical';
+}
+
+interface AIResponse {
+  success: boolean;
+  data?: { content: string };
+  model: string;
+  error?: string;
+}
+
+interface AIContextType {
+  activeModel: AIModel | null;
+  isProcessing: boolean;
+  tokensUsed: number;
+  sendMessage: (message: string) => Promise<AIResponse>;
+  generateCode: (prompt: string, language: string) => Promise<AIResponse>;
+  createProject: (spec: any) => Promise<AIResponse>;
+}
+
+const AIContext = createContext<AIContextType | undefined>(undefined);
+
+export const AIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [activeModel] = useState<AIModel>({ id: 'auto', name: 'Routage Intelligent', type: 'conversational' });
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [tokensUsed, setTokensUsed] = useState(0);
+
+  const sendMessage = useCallback(async (message: string): Promise<AIResponse> => {
+    setIsProcessing(true);
+    
+    try {
+      // Détection automatique du type de tâche
+      const taskType = message.toLowerCase().includes('crée') || message.toLowerCase().includes('génère') 
+        ? 'creative' 
+        : message.toLowerCase().includes('code') || message.toLowerCase().includes('fonction')
+        ? 'technical'
+        : 'conversational';
+
+      const complexity = message.length > 100 ? 8 : 5;
+
+      const response = await realAIOrchestrator.processTask({
+        type: taskType,
+        complexity,
+        context: message
+      });
+
+      if (response.tokensUsed) {
+        setTokensUsed(prev => prev + response.tokensUsed!);
+      }
+
+      return response;
+    } finally {
+      setIsProcessing(false);
+    }
+  }, []);
+
+  const generateCode = useCallback(async (prompt: string, language: string): Promise<AIResponse> => {
+    setIsProcessing(true);
+    
+    try {
+      const response = await realAIOrchestrator.processTask({
+        type: 'technical',
+        complexity: 8,
+        context: `Génère du code ${language} pour: ${prompt}`,
+        language
+      });
+
+      if (response.tokensUsed) {
+        setTokensUsed(prev => prev + response.tokensUsed!);
+      }
+
+      return response;
+    } finally {
+      setIsProcessing(false);
+    }
+  }, []);
+
+  const createProject = useCallback(async (spec: any): Promise<AIResponse> => {
+    setIsProcessing(true);
+    
+    try {
+      const response = await realAIOrchestrator.createProject(spec);
+
+      if (response.tokensUsed) {
+        setTokensUsed(prev => prev + response.tokensUsed!);
+      }
+
+      return response;
+    } finally {
+      setIsProcessing(false);
+    }
+  }, []);
+
+  const value: AIContextType = {
+    activeModel,
+    isProcessing,
+    tokensUsed,
+    sendMessage,
+    generateCode,
+    createProject
+  };
+
+  return (
+    <AIContext.Provider value={value}>
+      {children}
+    </AIContext.Provider>
+  );
+};
+
+export const useAI = (): AIContextType => {
+  const context = useContext(AIContext);
+  if (!context) {
+    throw new Error('useAI doit être utilisé dans un AIProvider');
+  }
+  return context;
+};

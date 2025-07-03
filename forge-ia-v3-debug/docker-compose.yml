@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  # FORGE IA Frontend
+  forge-ia:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: forge-ia-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - VITE_POCKETBASE_URL=http://pocketbase:8090
+    volumes:
+      - ./dist:/app/dist:ro
+    depends_on:
+      - pocketbase
+    restart: unless-stopped
+    networks:
+      - forge-ia-network
+
+  # PocketBase Database
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: forge-ia-pocketbase
+    ports:
+      - "8090:8090"
+    volumes:
+      - pocketbase_data:/pb_data
+      - ./pocketbase/migrations:/pb_migrations:ro
+    environment:
+      - ENCRYPTION_KEY=${PB_ENCRYPTION_KEY:-your-32-char-encryption-key-here}
+    restart: unless-stopped
+    networks:
+      - forge-ia-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: forge-ia-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - certbot_data:/var/www/certbot:ro
+      - certbot_conf:/etc/letsencrypt:ro
+    depends_on:
+      - forge-ia
+      - pocketbase
+    restart: unless-stopped
+    networks:
+      - forge-ia-network
+
+  # Certbot pour SSL
+  certbot:
+    image: certbot/certbot
+    container_name: forge-ia-certbot
+    volumes:
+      - certbot_data:/var/www/certbot
+      - certbot_conf:/etc/letsencrypt
+    command: certonly --webroot --webroot-path=/var/www/certbot --email admin@votre-domaine.com --agree-tos --no-eff-email -d votre-domaine.com -d www.votre-domaine.com
+    networks:
+      - forge-ia-network
+
+volumes:
+  pocketbase_data:
+    driver: local
+  certbot_data:
+    driver: local
+  certbot_conf:
+    driver: local
+
+networks:
+  forge-ia-network:
+    driver: bridge

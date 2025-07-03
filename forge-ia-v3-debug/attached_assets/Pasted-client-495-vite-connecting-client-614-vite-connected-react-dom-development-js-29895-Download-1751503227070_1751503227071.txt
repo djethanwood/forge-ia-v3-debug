@@ -1,0 +1,62 @@
+client:495 [vite] connecting...
+client:614 [vite] connected.
+react-dom.development.js:29895 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+realAIOrchestrator.ts:25 ⚠️ Mode démo IA - Clés API non configurées
+RealAIOrchestrator @ realAIOrchestrator.ts:25
+pocketbaseService.ts:11 🔧 PocketBase configuré sur: http://127.0.0.1:8090
+projectService.ts:159 📂 2 projets chargés
+aiService.ts:13 ⚠️ Clés API IA non configurées - Mode démo activé
+AIService @ aiService.ts:13
+127.0.0.1:8090/api/health:1     Failed to load resource: net::ERR_CONNECTION_REFUSED
+pocketbaseService.ts:29 ⚠️ PocketBase non disponible, mode démo activé
+initializeConnection @ pocketbaseService.ts:29
+4CreateProjectModal.tsx:141 Uncaught TypeError: useAI2 is not a function
+    at CreateProjectModal (CreateProjectModal.tsx:141:29)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (react-dom.development.js:20103:13)
+    at beginWork (react-dom.development.js:21626:16)
+    at HTMLUnknownElement.callCallback2 (react-dom.development.js:4164:14)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:16)
+    at invokeGuardedCallback (react-dom.development.js:4277:31)
+    at beginWork$1 (react-dom.development.js:27490:7)
+    at performUnitOfWork (react-dom.development.js:26596:12)
+    at workLoopSync (react-dom.development.js:26505:5)
+react-dom.development.js:18704 The above error occurred in the <CreateProjectModal> component:
+
+    at CreateProjectModal (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/components/CreateProjectModal.tsx?t=1751503120674:131:3)
+    at Sidebar (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/components/Sidebar.tsx?t=1751503120674:36:3)
+    at div
+    at div
+    at AIProvider (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/contexts/AIContext.tsx:47:23)
+    at ProjectProvider (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/contexts/ProjectContext.tsx:20:35)
+    at App (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/App.tsx?t=1751503120674:35:39)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ react-dom.development.js:18704
+react-dom.development.js:18704 The above error occurred in the <CreateProjectModal> component:
+
+    at CreateProjectModal (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/components/CreateProjectModal.tsx?t=1751503120674:131:3)
+    at MainCanvas (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/components/MainCanvas.tsx?t=1751503120674:25:35)
+    at div
+    at div
+    at div
+    at div
+    at AIProvider (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/contexts/AIContext.tsx:47:23)
+    at ProjectProvider (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/contexts/ProjectContext.tsx:20:35)
+    at App (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/App.tsx?t=1751503120674:35:39)
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ react-dom.development.js:18704
+react-dom.development.js:26962 Uncaught TypeError: useAI2 is not a function
+    at CreateProjectModal (CreateProjectModal.tsx:141:29)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at mountIndeterminateComponent (react-dom.development.js:20103:13)
+    at beginWork (react-dom.development.js:21626:16)
+    at beginWork$1 (react-dom.development.js:27465:14)
+    at performUnitOfWork (react-dom.development.js:26596:12)
+    at workLoopSync (react-dom.development.js:26505:5)
+    at renderRootSync (react-dom.development.js:26473:7)
+    at recoverFromConcurrentError (react-dom.development.js:25889:20)
+    at performConcurrentWorkOnRoot (react-dom.development.js:25789:22)

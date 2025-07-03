@@ -1,0 +1,52 @@
+client:495 [vite] connecting...
+client:614 [vite] connected.
+react-dom.development.js:29895 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+pocketbaseService.ts:11 🔧 PocketBase configuré sur: http://127.0.0.1:8090
+realAIOrchestrator.ts:25 ⚠️ Mode démo IA - Clés API non configurées
+RealAIOrchestrator @ realAIOrchestrator.ts:25
+aiService.ts:13 ⚠️ Clés API IA non configurées - Mode démo activé
+AIService @ aiService.ts:13
+127.0.0.1:8090/api/health:1     Failed to load resource: net::ERR_CONNECTION_REFUSED
+pocketbaseService.ts:29 ⚠️ PocketBase non disponible, mode démo activé
+initializeConnection @ pocketbaseService.ts:29
+App.tsx:25 🎯 Navigation vers: settings
+react-dom.development.js:86 Warning: Use the `defaultValue` or `value` props on <select> instead of setting `selected` on <option>.
+    at option
+    at select
+    at div
+    at div
+    at div
+    at div
+    at div
+    at div
+    at SettingsPanel
+    at div
+    at div
+    at div
+    at div
+    at AIProvider (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/contexts/AIContext.tsx:47:30)
+    at ProjectProvider (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/contexts/ProjectContext.tsx:20:35)
+    at App (https://90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/src/App.tsx:35:39)
+printWarning @ react-dom.development.js:86
+90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/:1 [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) <input type=​"password" placeholder=​"sk-..." class=​"w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm">​
+90c417d7-36db-458d-9234-849edbd6158c-00-1rp24t4d8ocyi.riker.replit.dev/:1 [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) <input type=​"password" placeholder=​"sk-ant-..." class=​"w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white text-sm">​
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Documentation (docs)
+App.tsx:25 🎯 Navigation vers: docs
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Analytics (analytics)
+App.tsx:25 🎯 Navigation vers: analytics
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Sécurité (security)
+App.tsx:25 🎯 Navigation vers: security
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Git & Versions (git)
+App.tsx:25 🎯 Navigation vers: git
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Base de données (database)
+App.tsx:25 🎯 Navigation vers: database
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers UI Builder (ui-builder)
+App.tsx:25 🎯 Navigation vers: ui-builder
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Éditeur Code (code)
+App.tsx:25 🎯 Navigation vers: code
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Aperçu (preview)
+App.tsx:25 🎯 Navigation vers: preview
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers Outils (tools)
+App.tsx:25 🎯 Navigation vers: tools
+Sidebar.tsx:59 🎯 Sidebar: Navigation vers IA Assistant (ai)
+App.tsx:25 🎯 Navigation vers: ai
